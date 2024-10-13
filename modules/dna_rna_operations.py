@@ -27,13 +27,13 @@ rna_complenent_dict = {
 
 def transcribe(nk_str: list[str]) -> list[str]:
     """
-    Транскрибирует последовательности ДНК в РНК.
+    Transcribes DNA sequences into RNA.
 
-    Аргументы:
-    nk_str -- список строк с последовательностями ДНК или РНК.
+    Arguments:
+    dna_str -- a list of strings containing DNA or RNA sequences.
 
-    Возвращает:
-    Список строк с последовательностями РНК.
+    Returns:
+    A list of strings containing RNA sequences.
     """
     # Если у нас на вход подается список с одной строкой
     # то вынесем эту строку в новую переменную
@@ -51,13 +51,13 @@ def transcribe(nk_str: list[str]) -> list[str]:
 # Функция, которая разворачивает последовательность
 def reverse(nk_str: list[str]) -> list[str]:
     """
-    Возвращает развернутую последовательности ДНК или РНК.
+    Returns the reversed sequences of DNA or RNA.
 
-    Аргументы:
-    nk_str -- список строк с последовательностями ДНК или РНК.
+    Arguments:
+    nk_str -- a list of strings containing DNA or RNA sequences.
 
-    Возвращает:
-    Список строк с развернутыми последовательностями ДНК или РНК.
+    Returns:
+    A list of strings containing the reversed DNA or RNA sequences.
     """
     if len(nk_str) == 1:
         one_string = nk_str[0]
@@ -71,13 +71,13 @@ def reverse(nk_str: list[str]) -> list[str]:
 # Функция, которая возвращает комплементарную последовательность
 def complement(nk_str: list[str]) -> list[str]:
     """
-    Возвращает комплементарные последовательности ДНК или РНК.
+    Returns the complementary sequences of DNA or RNA.
 
-    Аргументы:
-    nk_str -- список строк с последовательностями ДНК или РНК.
+    Arguments:
+    nk_str -- a list of strings containing DNA or RNA sequences.
 
-    Возвращает:
-    Список строк с комплементарными последовательностями.
+    Returns:
+    A list of strings containing the complementary sequences.
     """
 
     if len(nk_str) == 1:
@@ -93,7 +93,7 @@ def complement(nk_str: list[str]) -> list[str]:
 
         for nk in nk_str:
             if 'T' in nk.upper() and 'U' in nk.upper():
-                return "Некорректная последовательность: содержит 'T' и 'U'"
+                return "Invalid sequence: contains both 'T' and 'U'"
 
             # Определение комплементарной последовательности
             if "T" in nk or "t" in nk:
@@ -110,13 +110,13 @@ def complement(nk_str: list[str]) -> list[str]:
 # и разворачивает ее
 def reverse_complement(nk_str: list[str]) -> list[str]:
     """
-    Возвращает развернутые комплементарные последовательности ДНК или РНК.
+    Returns the reverse complementary sequences of DNA or RNA.
 
-    Аргументы:
-    nk_str -- список строк с последовательностями ДНК или РНК.
+    Arguments:
+    nk_str -- a list of strings containing DNA or RNA sequences.
 
-    Возвращает:
-    Список строк с развернутыми комплементарными последовательностями.
+    Returns:
+    A list of strings containing the reverse complementary sequences.
     """
     if len(nk_str) == 1:
         for nk in nk_str:
@@ -130,7 +130,7 @@ def reverse_complement(nk_str: list[str]) -> list[str]:
         comp_seqs = []
 
         if 'T' in nk.upper() and 'U' in nk.upper():
-            return "Некорректная последовательность: содержит как 'T'и 'U'"
+            return "Invalid sequence: contains both 'T' and 'U'"
 
         for nk in nk_str:
             if "T" in nk or "t" in nk:
