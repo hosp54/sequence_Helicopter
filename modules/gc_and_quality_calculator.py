@@ -2,13 +2,13 @@
 
 def calculate_gc_content(sequence: str) -> float:
     """
-    Вычисляет процент содержания GC в последовательности.
+    Calculates the GC content percentage in a sequence.
 
-    Аргументы:
-    sequence -- строка с последовательностью ДНК или РНК.
+    Arguments:
+    sequence -- a string representing a DNA or RNA sequence.
 
-    Возвращает:
-    Процент содержания GC в последовательности (float).
+    Returns:
+    The percentage of GC content in the sequence (float).
     """
     g_count = sequence.count("C")
     c_count = sequence.count("G")
@@ -20,13 +20,13 @@ def calculate_gc_content(sequence: str) -> float:
 
 def calculate_quality(quality_str: str) -> float:
     """
-    Вычисляет среднее качество последовательности по строке качеств.
+    Calculates the average quality score of a sequence based on a quality string.
 
-    Аргументы:
-    quality_str -- строка с символами качества (ASCII-кодировка).
+    Arguments:
+    quality_str -- a string representing quality scores (ASCII encoding).
 
-    Возвращает:
-    Среднее качество последовательности (float).
+    Returns:
+    The average quality score of the sequence (float).
     """
     quality_scores = [ord(q_symbol) - 33 for q_symbol in quality_str]
     avg_quality = sum(quality_scores) / len(quality_scores)
