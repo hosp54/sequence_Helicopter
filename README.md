@@ -15,18 +15,11 @@ Run the following commands to start it:
 ```bash
 git clone git@github.com:hosp54/sequence_Helicopter.git
 cd sequence_Helicopter
+pip install -r requirements.txt
 python sequence_helicopter.py
 ```
 
 **System requirements:** Python 3.10 and above.
-
-**Dependencies:** Install the required library using:
-
-```bash
-pip install biopython
-```
-
----
 
 ## Function Description
 
@@ -53,9 +46,9 @@ The parameters have default values, but the user can specify custom values.
 filter_fastq(
     input_fastq="example.fastq",
     output_fastq="filtered.fastq",
-    gc_bounds=(30, 70),  # Filter by GC content (30% - 70%)
-    length_bounds=(50, 150),  # Filter by length (50 - 150 bp)
-    quality_threshold=20,  # Filter by average quality (>= 20)
+    gc_bounds=(30, 70),
+    length_bounds=(50, 150),
+    quality_threshold=20,
 )
 ```
 
