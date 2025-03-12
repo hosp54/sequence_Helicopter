@@ -1,7 +1,3 @@
-Обновим `README.md` с учетом изменений, которые мы внесли в код (использование Biopython и удаление старых модулей). Вот обновленный текст:
-
----
-
 # sequence_Helicopter
 
 A bioinformatics tool that performs basic operations on DNA and RNA sequences and filters sequences in FASTQ format files.
