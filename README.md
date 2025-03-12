@@ -2,8 +2,6 @@
 
 A bioinformatics tool that performs basic operations on DNA and RNA sequences and filters sequences in FASTQ format files.
 
----
-
 ## Installing and Running Programs
 
 Run the following commands to start it:
@@ -48,8 +46,6 @@ filter_fastq(
 )
 ```
 
----
-
 ### Classes for DNA, RNA, and Protein Sequences
 
 The tool provides classes for working with biological sequences:
@@ -93,10 +89,7 @@ parse_blast_output(
 )
 ```
 
----
-
 ## Contacts
 
-For questions or feedback, contact:  
 **Ivan**  
 Email: [hosp54@gmail.com](mailto:hosp54@gmail.com)
