@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from Bio import SeqIO
 from Bio.SeqUtils import gc_fraction
 from pathlib import Path
-
+import logging
 
 class BiologicalSequence(ABC):
     """
@@ -131,43 +131,55 @@ def filter_fastq(
         None
     """
 
+    logging.info(f"Creating output directory if it does not exist: {Path(output_fastq).parent}")
     output_dir = Path(output_fastq).parent
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(input_fastq, "r") as input_handle, open(output_fastq, "w") as output_handle:
+    try:
+        with open(input_fastq, "r") as input_handle, open(output_fastq, "w") as output_handle:
+            logging.info(f"Opened input FASTQ file: {input_fastq}")
+            logging.info(f"Opened output FASTQ file: {output_fastq}")
 
-        good_filtered_seqs = []
+            good_filtered_seqs = []
+            total_sequences = 0
 
-        for record in SeqIO.parse(input_handle, "fastq"):
+            for record in SeqIO.parse(input_handle, "fastq"):
+                total_sequences += 1
 
-            gc_content = gc_fraction(record.seq) * 100
-            avg_quality = sum(record.letter_annotations["phred_quality"]) / len(record)
-            length_seq = len(record)
+                gc_content = gc_fraction(record.seq) * 100
+                avg_quality = sum(record.letter_annotations["phred_quality"]) / len(record)
+                length_seq = len(record)
 
-            gc_status = False
-            length_status = False
-            quality_status = False
+                gc_status = False
+                length_status = False
+                quality_status = False
 
-            if isinstance(gc_bounds, (int, float)):
-                if gc_content <= gc_bounds:
-                    gc_status = True
-            elif isinstance(gc_bounds, tuple):
-                if gc_bounds[0] <= gc_content <= gc_bounds[1]:
-                    gc_status = True
+                if isinstance(gc_bounds, (int, float)):
+                    if gc_content <= gc_bounds:
+                        gc_status = True
+                elif isinstance(gc_bounds, tuple):
+                    if gc_bounds[0] <= gc_content <= gc_bounds[1]:
+                        gc_status = True
 
-            if isinstance(length_bounds, (int, float)):
-                if length_seq <= length_bounds:
-                    length_status = True
-            elif isinstance(length_bounds, tuple):
-                if length_bounds[0] <= length_seq <= length_bounds[1]:
-                    length_status = True
+                if isinstance(length_bounds, (int, float)):
+                    if length_seq <= length_bounds:
+                        length_status = True
+                elif isinstance(length_bounds, tuple):
+                    if length_bounds[0] <= length_seq <= length_bounds[1]:
+                        length_status = True
 
-            if avg_quality >= quality_threshold:
-                quality_status = True
+                if avg_quality >= quality_threshold:
+                    quality_status = True
 
-            if gc_status and length_status and quality_status:
-                good_filtered_seqs.append(record)
+                if gc_status and length_status and quality_status:
+                    good_filtered_seqs.append(record)
 
-        SeqIO.write(good_filtered_seqs, output_handle, "fastq")
+            logging.info(f"Total sequences processed: {total_sequences}")
+            logging.info(f"Sequences passed filters: {len(good_filtered_seqs)}")
 
-        print(f"Sequences filtered: {len(good_filtered_seqs)}")
+            SeqIO.write(good_filtered_seqs, output_handle, "fastq")
+            logging.info(f"Filtered sequences written to: {output_fastq}")
+
+    except Exception as e:
+        logging.error(f"Error occurred during filtering process: {e}")
+        raise
